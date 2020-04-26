@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+* {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+}
+
+.navbar.navbar-dark {
+  margin: 0;
+  background-image: linear-gradient(90deg, #3c0472, #5d00b7);
+}
+
+.page-footer {
+  margin: 0;
+  background-image: linear-gradient(-90deg, #80b445, #135b35);
+}
+
+.carousel {
+  position: absolute;
+  top: 0;
+  z-index: -100;
+  height: 100vh;
+  min-width: 100%;
+}
+
+.carousel img {
+  min-height: 100vh;
+  object-fit: cover;
+}
+
+#cardSection {
+  background-color: rgba(221, 221, 221, 0.5);
+  padding: 4rem 0;
+}

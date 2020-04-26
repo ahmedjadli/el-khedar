@@ -6,6 +6,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "gatsby": "^2.18.8",
+    "gatsby-cli": "^2.11.22",
     "gatsby-image": "^2.2.34",
     "gatsby-link": "^2.2.25",
     "gatsby-plugin-react-helmet": "^3.1.16",
@@ -13,10 +14,12 @@
     "gatsby-plugin-sharp": "^2.3.5",
     "gatsby-plugin-snipcart": "^1.1.2",
     "gatsby-source-datocms": "^2.1.20",
+    "mdbreact": "^4.25.5",
     "node-sass": "^4.12.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet": "^5.2.0"
+    "react-helmet": "^5.2.0",
+    "sweetalert2": "^9.10.12"
   },
   "keywords": [
     "gatsby"

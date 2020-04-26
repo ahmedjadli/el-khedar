@@ -1,65 +1,81 @@
-import React from 'react'
-import { StaticQuery, graphql } from 'gatsby'
-import Layout from "../layouts/index"
-import Img from 'gatsby-image'
+import React, { useEffect } from "react";
+import Layout from "../layouts";
+import Intro from "../components/mask";
+import SEO from "../components/seo";
+import Carousel from "../components/carousel";
+import AboutSection from "../components/aboutSection";
+import CardExample from "../components/card";
+import { MDBRow } from "mdbreact";
+import { StaticQuery, graphql } from "gatsby";
 
-export default () => (
-  <StaticQuery
-    query={graphql`
-      query CatalogueQuery {
-        products: allDatoCmsProduct {
-          edges {
-            node {
-              id
-              name
-              price
-              image {
-                url
-                sizes(maxWidth: 300, imgixParams: { fm: "jpg" }) {
-                  ...GatsbyDatoCmsSizes
+const CartItems = [];
+
+const Home = () => {
+  useEffect(() => {
+    if (!sessionStorage.getItem("CartItems")) {
+      sessionStorage.setItem("CartItems", JSON.stringify(CartItems));
+    }
+  }, []);
+
+  return (
+    <Layout>
+      <SEO
+        title="Acceuil"
+        keywords={[
+          `gatsby`,
+          `MDBReact`,
+          `react`,
+          `Material Design For Bootstrap`,
+        ]}
+      />
+      <Carousel />
+      <Intro />
+      <main>
+        <AboutSection />
+        <section
+          id="cardSection"
+          style={{ paddingTop: "20vh", paddingBottom: "10vh" }}
+        >
+          <h2 className="h1-responsive text-center font-weight-bold mb-5">
+            Our bestsellers
+          </h2>
+          <StaticQuery
+            query={graphql`
+              query CatalogueFirstThreeQuery {
+                products: allDatoCmsProduct(limit: 3) {
+                  edges {
+                    node {
+                      id
+                      name
+                      price
+                      image {
+                        url
+                        sizes(maxWidth: 300, imgixParams: { fm: "jpg" }) {
+                          ...GatsbyDatoCmsSizes
+                        }
+                      }
+                    }
+                  }
+                }
+                site {
+                  siteMetadata {
+                    siteName
+                  }
                 }
               }
-            }
-          }
-        }
-        site {
-          siteMetadata {
-            siteName
-          }
-        }
-      }
-    `}
-render={data => (
-  <Layout site={data.site}>
-    <div className="Catalogue">
-      {
-        data.products.edges.map(({ node: product }) => (
-          <div className="Catalogue__item" key={product.id}>
-            <div
-              className="Product snipcart-add-item"
-              data-item-id={product.id}
-              data-item-price={product.price}
-              data-item-image={product.image.url}
-              data-item-name={product.name}
-              data-item-url={`/`}
-            >
-              <div className="Product__image">
-                <Img sizes={product.image.sizes} />
-              </div> <div className="Product__details">
-                <div className="Product__name">
-                  {product.name}
-                  <div className="Product__price">
-                    {product.price}€
-                  </div>
-                </div>
-                <span className="Product__buy">Buy now</span>
-              </div>
-            </div>
-          </div>
-        ))
-      }
-    </div>
-  </Layout>
-     )}
-   />
-)
+            `}
+            render={(data) => (
+              <MDBRow className="m-0" center>
+                {data.products.edges.map(({ node: product }) => (
+                  <CardExample infos={product} />
+                ))}
+              </MDBRow>
+            )}
+          />
+        </section>
+      </main>
+    </Layout>
+  );
+};
+
+export default Home;
