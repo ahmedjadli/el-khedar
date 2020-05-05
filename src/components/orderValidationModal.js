@@ -10,7 +10,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 
 // Initialize google sheet API
-const SPREADSHEET_ID = process.env.GATSBY_SPREADSHEET_ID;
+const SPREADSHEET_ID = "1EaVjpkihUbodvHIkSNRheUINmJwkwP7-UK32v63C-Kw";
 const SCOPE = "https://www.googleapis.com/auth/spreadsheets";
 const API_KEY = "AIzaSyBumM5H3dnzyurQaNvui2qxR2i0R70brSU";
 const CLIENT_ID =
