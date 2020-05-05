@@ -3,7 +3,13 @@ import { MDBCloseIcon } from "mdbreact";
 
 function CartItem({ item, deleteItem }) {
   return (
-    <tr key={item.product.id}>
+    <tr
+      style={{
+        backgroundColor: "white",
+        textAlign: "center",
+      }}
+      key={item.product.id}
+    >
       <td style={{ width: "16%" }}>
         <img
           style={{ width: "90%" }}

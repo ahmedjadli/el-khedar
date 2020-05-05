@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MDBBtn,
   MDBCard,
@@ -12,29 +12,37 @@ import {
 import "../style/card.css";
 
 const CardExample = ({ infos, setIsShown }) => {
+  const [qte, setQte] = useState(1);
+  const [CartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    setCartItems(JSON.parse(sessionStorage.getItem("CartItems")));
+  }, []);
+
   const onClick = () => {
-    let CartItems = JSON.parse(sessionStorage.getItem("CartItems"));
     let verif = CartItems.find((F_item) => {
       return F_item.product.name === infos.name;
     });
     let item = {};
+    let CT = CartItems;
     if (verif) {
-      CartItems = CartItems.filter((D_item) => {
+      CT = CartItems.filter((D_item) => {
         return D_item.product.id !== verif.product.id;
       });
+      console.log(CT);
       item = {
         product: verif.product,
-        qt: verif.qt + 1,
+        qt: parseInt(verif.qt) + parseInt(qte),
       };
     } else {
       item = {
         product: infos,
-        qt: 1,
+        qt: qte,
       };
     }
-
-    CartItems.push(item);
-    sessionStorage.setItem("CartItems", JSON.stringify(CartItems));
+    CT.push(item);
+    setCartItems(CT);
+    sessionStorage.setItem("CartItems", JSON.stringify(CT));
     setIsShown(true);
   };
   return (
@@ -49,7 +57,25 @@ const CardExample = ({ infos, setIsShown }) => {
         <MDBCardBody>
           <MDBCardTitle>{infos.name}</MDBCardTitle>
           <MDBCardText>
-            <b style={{ color: "#000" }}>Price :</b> {infos.price} MAD
+            <b style={{ color: "#000" }}>Price :</b> {infos.price} MAD <br />
+            <b style={{ color: "#000" }}>Quantité :</b>{" "}
+            <input
+              type="number"
+              min="1"
+              value={qte}
+              onChange={(e) => {
+                setQte(e.target.value);
+              }}
+              style={{
+                width: "20%",
+                background: "light-grey",
+                borderColor: "light-grey",
+                borderStyle: "solid",
+                borderRadius: "10px",
+                textAlign: "center",
+              }}
+            />
+            <span> KG</span>
           </MDBCardText>
           <MDBBtn
             onClick={onClick}

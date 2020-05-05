@@ -3,7 +3,7 @@ import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import CartItem from "./cart_item";
 import "../style/global.css";
 
-const CartList = () => {
+const CartList = ({ setCartItems }) => {
   const [cartItems, setcartItems] = useState([]);
 
   useEffect(() => {
@@ -15,6 +15,7 @@ const CartList = () => {
       return item.product.name !== name;
     });
     setcartItems(CT);
+    setCartItems(CT);
     sessionStorage.setItem("CartItems", JSON.stringify(CT));
   };
 
@@ -24,7 +25,7 @@ const CartList = () => {
   return (
     <MDBTable striped bordered>
       <MDBTableHead>
-        <tr>
+        <tr style={{ backgroundColor: "white", textAlign: "center" }}>
           <th className="smaller-th">#</th>
           <th className="smaller-th">Nom</th>
           <th className="smaller-th">Prix unitaire</th>

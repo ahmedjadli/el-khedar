@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../layouts";
 import CartList from "../components/cart";
 import { MDBContainer, MDBBtn, MDBIcon } from "mdbreact";
@@ -6,10 +6,11 @@ import OrderValidationModal from "../components/orderValidationModal";
 
 const Cart = () => {
   const [isOpen, setisOpen] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
 
-  const toggle = () => {
-    setisOpen(!isOpen);
-  };
+  useEffect(() => {
+    setCartItems(JSON.parse(sessionStorage.getItem("CartItems")));
+  }, []);
   return (
     <div>
       <Layout>
@@ -21,13 +22,13 @@ const Cart = () => {
           }}
         >
           <MDBContainer>
-            <h2>My cart</h2>
+            <h2>Mon Panier</h2>
             <br />
             <br />
-            <CartList />
+            <CartList setCartItems={setCartItems} />
             <br />
+            <span>Total : </span>
             <MDBBtn
-              // onClick={onClick}
               style={{ fontSize: "11px" }}
               color="green"
               center
@@ -40,7 +41,12 @@ const Cart = () => {
             <br />
             <br />
             <br />
-            <OrderValidationModal isOpen={isOpen} setisOpen={setisOpen} />
+
+            <OrderValidationModal
+              isOpen={isOpen}
+              setisOpen={setisOpen}
+              cartItems={cartItems}
+            />
           </MDBContainer>
         </main>
       </Layout>

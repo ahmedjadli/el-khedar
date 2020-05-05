@@ -20,7 +20,7 @@ const Home = () => {
   return (
     <Layout>
       <SEO
-        title="Acceuil"
+        title="Accueil"
         keywords={[
           `gatsby`,
           `MDBReact`,
@@ -34,10 +34,10 @@ const Home = () => {
         <AboutSection />
         <section
           id="cardSection"
-          style={{ paddingTop: "20vh", paddingBottom: "10vh" }}
+          style={{ paddingTop: "15vh", paddingBottom: "15vh" }}
         >
           <h2 className="h1-responsive text-center font-weight-bold mb-5">
-            Our bestsellers
+            Nos Meilleurs offres de la semaine
           </h2>
           <StaticQuery
             query={graphql`

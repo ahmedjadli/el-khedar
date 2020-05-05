@@ -3,17 +3,9 @@ import {
   MDBContainer,
   MDBNavbar,
   MDBNavbarNav,
-  MDBNavItem,
-  MDBNavLink,
   MDBNavbarToggler,
   MDBCollapse,
-  MDBFormInline,
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBDropdownItem,
   MDBIcon,
-  MDBBtn,
 } from "mdbreact";
 import { Link } from "gatsby";
 import CustomNavLink from "./customLink";
@@ -45,13 +37,13 @@ class NavbarPage extends Component {
           />
           <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
             <MDBNavbarNav left>
-              <CustomNavLink to="/">ACCEUIL</CustomNavLink>
-              <CustomNavLink to="/shop">SHOP</CustomNavLink>
+              <CustomNavLink to="/">Accueil</CustomNavLink>
+              <CustomNavLink to="/shop">Shop</CustomNavLink>
             </MDBNavbarNav>
             <MDBNavbarNav right>
               <div className="d-flex align-items-center">
                 <CustomNavLink to="/cart">
-                  <MDBIcon fab icon="opencart" className="ml-1" /> Cart
+                  <MDBIcon fab icon="opencart" className="ml-1" /> Panier
                 </CustomNavLink>
               </div>
             </MDBNavbarNav>
