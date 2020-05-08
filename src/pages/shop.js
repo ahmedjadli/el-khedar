@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StaticQuery, graphql } from "gatsby";
 import Layout from "../layouts/index";
 import CardExample from "../components/card";
@@ -7,6 +7,11 @@ import SEO from "../components/seo";
 
 export default () => {
   const [isShown, setIsShown] = useState(false);
+  const [CartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    setCartItems(JSON.parse(sessionStorage.getItem("CartItems")));
+  }, []);
 
   return (
     <StaticQuery
@@ -64,7 +69,11 @@ export default () => {
 
               <MDBRow style={{ padding: "5em 0 8em 0" }} className="m-0" center>
                 {data.products.edges.map(({ node: product }) => (
-                  <CardExample setIsShown={setIsShown} infos={product} />
+                  <CardExample
+                    CartItems={CartItems}
+                    setCartItems={setCartItems}
+                    infos={product}
+                  />
                 ))}
               </MDBRow>
             </MDBContainer>

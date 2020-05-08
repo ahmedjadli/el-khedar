@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
+import {
+  MDBTable,
+  MDBTableBody,
+  MDBTableHead,
+  MDBBtn,
+  MDBIcon,
+} from "mdbreact";
+import { Link } from "gatsby";
 import CartItem from "./cart_item";
 import "../style/global.css";
 
-const CartList = ({ setCartItems }) => {
-  const [cartItems, setcartItems] = useState([]);
-
-  useEffect(() => {
-    setcartItems(JSON.parse(sessionStorage.getItem("CartItems")));
-  }, []);
-
+const CartList = ({ cartItems, setCartItems }) => {
   const deleteItem = (name) => {
     let CT = cartItems.filter((item) => {
       return item.product.name !== name;
     });
-    setcartItems(CT);
     setCartItems(CT);
     sessionStorage.setItem("CartItems", JSON.stringify(CT));
   };
@@ -22,27 +22,56 @@ const CartList = ({ setCartItems }) => {
   let isEmpty = !cartItems || !cartItems.length;
 
   console.log(cartItems);
+
   return (
-    <MDBTable striped bordered>
-      <MDBTableHead>
-        <tr style={{ backgroundColor: "white", textAlign: "center" }}>
-          <th className="smaller-th">#</th>
-          <th className="smaller-th">Nom</th>
-          <th className="smaller-th">Prix unitaire</th>
-          <th className="smaller-th">Quantité</th>
-          <th className="smaller-th">Totale</th>
-          <th></th>
-        </tr>
-      </MDBTableHead>
-      <MDBTableBody>
-        {!isEmpty
-          ? cartItems.map((item) => (
+    <div>
+      {!isEmpty ? (
+        <MDBTable striped bordered>
+          <MDBTableHead>
+            <tr style={{ backgroundColor: "white", textAlign: "center" }}>
+              <th className="smaller-th">#</th>
+              <th className="smaller-th">Nom</th>
+              <th className="smaller-th">Prix unitaire</th>
+              <th className="smaller-th">Quantité</th>
+              <th className="smaller-th">Totale</th>
+              <th></th>
+            </tr>
+          </MDBTableHead>
+          <MDBTableBody>
+            {cartItems.map((item) => (
               <CartItem item={item} deleteItem={deleteItem} />
-            ))
-          : "Your cart is empty"}
-      </MDBTableBody>
-    </MDBTable>
+            ))}
+          </MDBTableBody>
+        </MDBTable>
+      ) : (
+        <div>
+          <center>
+            <br />
+            <h2>Votre Panier et vide</h2>
+
+            <br />
+            <p>visiter notre shop pour remplir votre panier</p>
+            <br />
+            <MDBIcon size="5x" icon="cart-arrow-down" className="grey-text" />
+            <br />
+            <br />
+            <MDBBtn color="light-green" className="white-text">
+              <Link
+                style={{ fontSize: "11px" }}
+                className="white-text"
+                to="/shop"
+              >
+                {" "}
+                accéder au Shop <MDBIcon icon="angle-right" />
+              </Link>
+            </MDBBtn>
+            <br />
+            <br />
+            <br />
+          </center>
+        </div>
+      )}
+    </div>
   );
 };
-
 export default CartList;

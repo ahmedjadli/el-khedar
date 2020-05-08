@@ -1,7 +1,7 @@
 import React from "react";
 import { MDBRow, MDBCol, MDBIcon, MDBContainer } from "mdbreact";
 
-const FeaturesPage = () => {
+const FeaturesPage = ({ setIsOpen }) => {
   return (
     <MDBContainer
       style={{ padding: "2em 0 6em " }}
@@ -21,9 +21,15 @@ const FeaturesPage = () => {
           <p className="grey-text mb-md-0 mb-5">
             Des Légumes et fruits frais d’une meilleure qualité, 100% BIO et
             soigneusement sélectionnés du ferme à vos mains. vous pouvez aussi{" "}
-            <span style={{ cursor: "pointer" }} className="green-text">
+            <strong
+              onClick={() => {
+                setIsOpen(true);
+              }}
+              style={{ cursor: "pointer" }}
+              className="green-text"
+            >
               visiter l'un de nos fermes
-            </span>
+            </strong>
           </p>
         </MDBCol>
         <MDBCol md="4">

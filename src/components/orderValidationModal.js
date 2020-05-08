@@ -6,6 +6,7 @@ import {
   MDBModalBody,
   MDBModalFooter,
   MDBBtn,
+  MDBInput,
 } from "mdbreact";
 import { v4 as uuidv4 } from "uuid";
 
@@ -36,12 +37,19 @@ const initClient = () => {
 };
 
 // ****** Component ********
-const OrderValidationModal = ({ isOpen, setisOpen, cartItems }) => {
+const OrderValidationModal = ({
+  isOpen,
+  setisOpen,
+  cartItems,
+  setCartItems,
+  setId,
+  setTotal,
+}) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [tel, setTel] = useState("");
   const [adresse, setAdresse] = useState("");
-  const [pay, setPay] = useState(1);
+  const [pay, setPay] = useState(2);
 
   useEffect(() => {
     gapi.load("client:auth2", initClient());
@@ -54,6 +62,7 @@ const OrderValidationModal = ({ isOpen, setisOpen, cartItems }) => {
     cartItems.forEach((item) => {
       total = total + item.qt * item.product.price;
     });
+    setTotal(total);
     return total;
   };
 
@@ -61,27 +70,31 @@ const OrderValidationModal = ({ isOpen, setisOpen, cartItems }) => {
   const submissionValues = () => {
     let values = [];
     let ref = uuidv4();
+    setId(ref);
     let commande = "";
     cartItems.forEach((item) => {
       commande += item.qt + "x" + item.product.name + "/";
     });
-    let val = {
-      ref: uuidv4(),
-      email: email,
-      name: name,
-      tel: tel,
-      adresse: adresse,
-      commande: commande,
-      total: totalCart(),
-    };
-    values.push(ref, email, name, tel, adresse, commande, totalCart());
+    let payment =
+      pay === 1 ? "paiment par carte validé" : "paiment à la livraison";
+    values.push(ref, email, name, tel, adresse, commande, payment, totalCart());
     return values;
+  };
+
+  //after submit
+  const postSubmit = () => {
+    setisOpen(false);
+    setName("");
+    setEmail("");
+    setAdresse("");
+    setTel("");
+    setCartItems([]);
+    sessionStorage.setItem("CartItems", JSON.stringify([]));
   };
 
   //submiting method
   const clickHandle = (e) => {
     e.preventDefault();
-
     const params = {
       spreadsheetId: SPREADSHEET_ID,
       range: "sheet1",
@@ -100,6 +113,7 @@ const OrderValidationModal = ({ isOpen, setisOpen, cartItems }) => {
     request.then(
       (res) => {
         console.log(res.result);
+        postSubmit();
       },
       (reason) => {
         console.log("error: " + reason.result.error.message);
@@ -123,6 +137,9 @@ const OrderValidationModal = ({ isOpen, setisOpen, cartItems }) => {
             id="email"
             className="form-control"
           />
+          <div className="invalid-feedback">
+            Veuillez entrer votre Email correctement
+          </div>
           <br />
           <label htmlFor="nom" className="grey-text">
             Nom Complet :
@@ -169,7 +186,56 @@ const OrderValidationModal = ({ isOpen, setisOpen, cartItems }) => {
           <label htmlFor="payment" className="grey-text">
             méthode de paiment :
           </label>
-
+          <br />
+          <input
+            onClick={() => {
+              setPay(2);
+            }}
+            checked={pay === 2 ? true : false}
+            type="radio"
+          />{" "}
+          Paiment à la livraison
+          <br />
+          <input
+            onClick={() => {
+              setPay(1);
+            }}
+            checked={pay === 1 ? true : false}
+            type="radio"
+            value="paiment par carte"
+          />{" "}
+          Paiment par carte
+          <br />
+          <div hidden={pay === 2 ? true : false}>
+            <br />
+            <input
+              pattern="[\d| ]{16,22}"
+              required={pay === 1 ? true : false}
+              type="number"
+              placeholder="N° de carte"
+              className="form-control"
+            />
+            <br />
+            <input
+              pattern="\d\d/\d\d"
+              required={pay === 1 ? true : false}
+              style={{ width: "49%", display: "inline" }}
+              type="text"
+              placeholder="Date (MM/YY)"
+              className="form-control"
+            />
+            {"  "}
+            <input
+              placeholder="CVC"
+              required={pay === 1 ? true : false}
+              style={{ width: "49%", display: "inline" }}
+              type="number"
+              placeholder="CCV"
+              className="form-control"
+            />
+            <br />
+            <br />
+          </div>
           <br />
           <label htmlFor="" className="grey-text">
             Votre commande :

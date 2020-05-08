@@ -2,7 +2,7 @@ require("dotenv").config();
 
 module.exports = {
   siteMetadata: {
-    siteName: "My Shop",
+    siteName: "EL KHEDAR",
     description: "MDB React starter for material design landing page",
     author: "Ahmed Jadli",
   },
