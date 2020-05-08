@@ -55,16 +55,20 @@ const CartList = ({ cartItems, setCartItems }) => {
             <MDBIcon size="5x" icon="cart-arrow-down" className="grey-text" />
             <br />
             <br />
-            <MDBBtn color="light-green" className="white-text">
-              <Link
-                style={{ fontSize: "11px" }}
-                className="white-text"
-                to="/shop"
-              >
-                {" "}
-                accéder au Shop <MDBIcon icon="angle-right" />
-              </Link>
-            </MDBBtn>
+            <br />
+            <Link
+              style={{
+                fontSize: "13px",
+
+                padding: "15px 20px 15px 15px",
+              }}
+              className="white-text light-green"
+              to="/shop"
+            >
+              {" "}
+              accéder au Shop <MDBIcon icon="angle-right" />
+            </Link>
+
             <br />
             <br />
             <br />
