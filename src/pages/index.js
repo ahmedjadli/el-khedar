@@ -19,7 +19,7 @@ import { StaticQuery, graphql } from "gatsby";
 const CartItems = [];
 
 const Home = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     if (!sessionStorage.getItem("CartItems")) {
       sessionStorage.setItem("CartItems", JSON.stringify(CartItems));
