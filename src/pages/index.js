@@ -16,13 +16,15 @@ import {
 } from "mdbreact";
 import { StaticQuery, graphql } from "gatsby";
 
-const CartItems = [];
-
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [CartItems, setCartItems] = useState([]);
+
   useEffect(() => {
     if (!sessionStorage.getItem("CartItems")) {
-      sessionStorage.setItem("CartItems", JSON.stringify(CartItems));
+      sessionStorage.setItem("CartItems", JSON.stringify([]));
+    } else {
+      setCartItems(JSON.parse(sessionStorage.getItem("CartItems")));
     }
   }, []);
 
@@ -76,7 +78,11 @@ const Home = () => {
             render={(data) => (
               <MDBRow className="m-0" center>
                 {data.products.edges.map(({ node: product }) => (
-                  <CardExample infos={product} />
+                  <CardExample
+                    CartItems={CartItems}
+                    setCartItems={setCartItems}
+                    infos={product}
+                  />
                 ))}
               </MDBRow>
             )}
