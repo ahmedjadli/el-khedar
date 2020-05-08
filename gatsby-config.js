@@ -3,7 +3,7 @@ require("dotenv").config();
 module.exports = {
   siteMetadata: {
     siteName: "EL KHEDAR",
-    description: "MDB React starter for material design landing page",
+    description: "Gatsby server-less Ecommerce store EL-KHEDAR",
     author: "Ahmed Jadli",
   },
   plugins: [
