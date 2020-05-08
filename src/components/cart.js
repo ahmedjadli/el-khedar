@@ -47,7 +47,7 @@ const CartList = ({ cartItems, setCartItems }) => {
         <div>
           <center>
             <br />
-            <h2>Votre Panier et vide</h2>
+            <h2>Votre Panier est vide</h2>
 
             <br />
             <p>visiter notre shop pour remplir votre panier</p>

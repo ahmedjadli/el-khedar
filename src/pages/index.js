@@ -42,7 +42,10 @@ const Home = () => {
       <Carousel />
       <Intro />
       <main>
-        <AboutSection setIsOpen={setIsOpen} />
+        <section id="section1">
+          <AboutSection setIsOpen={setIsOpen} />
+        </section>
+
         <section
           id="cardSection"
           style={{ paddingTop: "15vh", paddingBottom: "15vh" }}

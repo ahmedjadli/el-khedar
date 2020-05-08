@@ -1,5 +1,6 @@
 import React from "react";
 import { MDBContainer, MDBBtn, MDBIcon, MDBRow, MDBCol } from "mdbreact";
+import { Link, animateScroll as scroll } from "react-scroll";
 
 const Intro = ({ children }) => {
   return (
@@ -16,9 +17,18 @@ const Intro = ({ children }) => {
               à prix reduit !
             </span>
           </h4>
-          <MDBBtn color="green">
-            <MDBIcon icon="chevron-down" className="mr-2" /> Savoir plus
-          </MDBBtn>
+          <Link
+            activeClass="active"
+            to="section1"
+            spy={true}
+            smooth={true}
+            offset={-70}
+            duration={500}
+          >
+            <MDBBtn className="smoothScroll" color="green">
+              <MDBIcon icon="chevron-down" className="mr-2" /> Savoir plus
+            </MDBBtn>
+          </Link>
         </MDBCol>
       </MDBRow>
     </MDBContainer>
